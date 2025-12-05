@@ -4,7 +4,7 @@ services:
   backend:
     build:
       context: .
-      dockerfile: Docker/Dockerfile.backend
+      dockerfile: apiserver/Docker/Dockerfile.backend
     container_name: devops-test-backend
     environment:
       - PORT=${PORT_DEV}
@@ -19,7 +19,7 @@ services:
   frontend:
     build:
       context: .
-      dockerfile: Docker/Dockerfile.frontend
+      dockerfile: client/Docker/Dockerfile.frontend
     container_name: devops-test-frontend
     ports:
       - 3000:80

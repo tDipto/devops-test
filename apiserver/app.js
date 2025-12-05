@@ -21,8 +21,12 @@ if (process.env.NODE_ENV === "development") {
     app.use(morgan("dev"))
 }
 
-// opening cors for development
-app.use(cors())
+app.use(cors({
+    origin: true, 
+    credentials: true, 
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+}))
 
 // setting security HTTP headers
 app.use(helmet({
