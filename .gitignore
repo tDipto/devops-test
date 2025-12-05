@@ -2,6 +2,7 @@
 /node_modules
 /apiserver/node_modules
 /apiserver/.config.env
+/apiserver/.config.env.production
 /apiserver/images!
 
 /client/node_modules
@@ -19,7 +20,7 @@
 /client/.env.development.local
 /client/.env.test.local
 /client/.env.production.local
-
+/client/.env.production
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
