@@ -10,7 +10,7 @@ const sendErrorDev = (err, res) => {
 
     // 2) send error message to client
     if (res.headersSent) return
-    res.status(err.statusCode).send({
+    res.status(err.statusCode || 500).send({
         status: err.status,
         error: err,
         name: err.name,
@@ -32,7 +32,7 @@ const sendErrorProd = (err, res) => {
             console.log(err.stack)
             console.log("💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥")
         } else {
-            res.status(err.statusCode).send({
+            res.status(err.statusCode || 500).send({
                 status: err.status,
                 message: err.message
             })
