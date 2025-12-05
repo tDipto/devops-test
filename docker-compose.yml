@@ -1,0 +1,59 @@
+version: '3.9'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: apiserver/Docker/Dockerfile.backend
+    container_name: devops-test-backend
+    environment:
+      - PORT=${PORT_DEV}
+    ports:
+      - ${PORT_DEV}:5000
+    working_dir: /usr/src/app
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: .
+      dockerfile: client/Docker/Dockerfile.frontend
+    container_name: devops-test-frontend
+    ports:
+      - 3000:80
+    extra_hosts:
+        - "host.docker.internal:host-gateway"
+    depends_on:
+      - backend
+
+
+  db:
+    image: pgvector/pgvector:pg17-trixie
+    container_name: devops-test-db
+    mem_limit: 1g
+    ports:
+      - ${DB_PORT}:5432
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  db-adminer:
+    image: adminer
+    container_name: devops-test-adminer
+    links:
+      - db:db
+    ports:
+      - 9087:8080
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+
+volumes:
+  pg-data:

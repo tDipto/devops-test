@@ -1,0 +1,26 @@
+# ---- Build Stage ----
+FROM node:20-alpine AS builder
+
+WORKDIR /usr/src/app
+
+COPY apiserver/package*.json ./  
+
+RUN npm install
+
+
+
+# ---- Runtime Stage ----
+FROM node:20-alpine
+
+WORKDIR /usr/src/app
+
+ARG PORT
+
+COPY --from=builder /usr/src/app/node_modules ./node_modules
+
+COPY apiserver/. .
+
+EXPOSE $PORT
+
+CMD ["node", "index.js"]
+
