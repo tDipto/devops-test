@@ -11,7 +11,7 @@ services:
     ports:
       - 5000:5000
     env_file:
-      - ./apiserver/.env
+      - ./apiserver/.config.env
     working_dir: /usr/src/app
     extra_hosts:
       - "host.docker.internal:host-gateway"
@@ -24,7 +24,7 @@ services:
       dockerfile: Docker/Dockerfile.frontend
     container_name: devops-test-frontend
     ports:
-      - "3000:80"
+      - 3000:80
     env_file:
       - ./client/.env
     extra_hosts:
@@ -58,16 +58,6 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
-  # postgres:
-  #   image: postgres:16-alpine
-  #   environment:
-  #     POSTGRES_USER: postgres
-  #     POSTGRES_PASSWORD: supersecret
-  #     POSTGRES_DB: appdb
-  #   volumes:
-  #     - pgdata:/var/lib/postgresql/data
-  #   networks:
-  #     - appnet
 
 volumes:
   pg-data:

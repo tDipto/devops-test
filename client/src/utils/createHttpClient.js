@@ -9,6 +9,7 @@ export default function createChannel() {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         },
+        withCredentials: true,
         signal: controller.signal,
     });
     return { request, controller }
