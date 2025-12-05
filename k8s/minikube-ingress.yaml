@@ -5,11 +5,12 @@ metadata:
   name: app-ingress
   namespace: devops-dev
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
-    
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+
 spec:
   rules:
-    - host: devops-test.local
+    # Frontend endpoint
+    - host: app.devops-test.local
       http:
         paths:
           - path: /
@@ -19,7 +20,12 @@ spec:
                 name: frontend
                 port:
                   number: 80
-          - path: /api
+
+    # Backend endpoint
+    - host: api.devops-test.local
+      http:
+        paths:
+          - path: /
             pathType: Prefix
             backend:
               service:
