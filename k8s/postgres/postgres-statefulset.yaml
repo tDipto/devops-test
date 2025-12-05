@@ -19,13 +19,9 @@ spec:
       containers:
         - name: postgres
           image: pgvector/pgvector:pg17-trixie
-          env:
-            - name: POSTGRES_USER
-              value: postgres
-            - name: POSTGRES_PASSWORD
-              value: postgres-pass
-            - name: POSTGRES_DB
-              value: sampledb
+          envFrom:
+            - secretRef:
+                name: postgres-secret
           ports:
             - containerPort: 5432
           volumeMounts:
