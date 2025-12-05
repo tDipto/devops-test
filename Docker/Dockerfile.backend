@@ -14,11 +14,13 @@ FROM node:20-alpine
 
 WORKDIR /usr/src/app
 
+ARG PORT
+
 COPY --from=builder /usr/src/app/node_modules ./node_modules
 
 COPY apiserver/. .
 
-EXPOSE 5000
+EXPOSE $PORT
 
 CMD ["node", "index.js"]
 
