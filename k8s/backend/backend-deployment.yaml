@@ -21,11 +21,11 @@ spec:
           imagePullPolicy: Never
           ports:
             - containerPort: 5000
-          envFrom:
-            - configMapRef:
-                name: app-config
-            - secretRef:
-                name: app-secrets
+          # envFrom:
+          #   - configMapRef:
+          #       name: app-config
+          #   - secretRef:
+          #       name: app-secrets
           # livenessProbe:
           #   httpGet:
           #     path: /api/health
@@ -46,6 +46,3 @@ spec:
           #   initialDelaySeconds: 10
           #   periodSeconds: 5
           #   failureThreshold: 30
-          
-
-            

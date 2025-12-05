@@ -1,14 +1,14 @@
-apiVersion: v1
-kind: PersistentVolumeClaim
+# apiVersion: v1
+# kind: PersistentVolumeClaim
 
-metadata:
-  name: postgres-pvc
-  namespace: devops-dev
+# metadata:
+#   name: postgres-pvc
+#   namespace: devops-dev
 
-spec:
-  storageClassName: manual
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 5Gi
+# spec:
+#   storageClassName: manual
+#   accessModes:
+#     - ReadWriteOnce
+#   resources:
+#     requests:
+#       storage: 5Gi
