@@ -39,8 +39,7 @@ app.use(express.json())
 // parsing incoming requests with urlencoded body payloads
 app.use(express.urlencoded({ extended: true }))
 
-// serving the static files
-app.use(express.static(path.join(__dirname, "../", "client/", "build")))
+// serving static images (backend assets)
 app.use(express.static(path.join(__dirname, "images")))
 
 // handling gzip compression
@@ -48,11 +47,6 @@ app.use(compression())
 
 // redirecting incoming requests to api.js
 app.use(`/api/${process.env.API_VERSION}`, api)
-
-// returning the main index.html, so react-router render the route in the client
-app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "../", "client/", "build", "index.html",))
-})
 
 // setting up a 404 error handler
 app.all("*", (req, res, next) => {
