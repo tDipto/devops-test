@@ -4,6 +4,10 @@ kind: Deployment
 metadata:
   name: backend
   namespace: devops-dev
+  annotations:
+      prometheus.io/scrape: "true"
+      prometheus.io/port: "5000"
+      prometheus.io/path: "/metrics"
 
 spec:
   replicas: 1
