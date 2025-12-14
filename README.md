@@ -359,3 +359,103 @@ http://prometheus.devops-test.svc.cluster.local:9090
 - You can now build dashboards or panels using both logs and metrics.
 
 
+
+
+
+# Local Kubernetes Development Environment with Terraform and Kind
+
+## Features
+
+- Creates a local Kind cluster (Kubernetes v1.29.8)
+- Deploys a dedicated namespace (`devops-dev`)
+- Installs **nginx-ingress** controller via Helm
+- Deploys:
+  - Frontend  on port 80
+  - Backend  on port 5000 
+  - PostgreSQL secrets (username, password, DB name)
+
+- Configures **Ingress** with two hosts:
+  - `app.devops-test.local` → frontend
+  - `api.devops-test.local` → backend
+
+- Uses local Docker images with `imagePullPolicy: Never`
+
+---
+
+
+### Build and tag your Docker images
+
+```bash
+# Frontend
+docker build -t frontend:latest ./frontend
+
+# Backend
+docker build -t backend:latest ./backend
+```
+
+### Initialize Terraform
+
+```bash
+terraform init
+```
+
+### Preview the plan
+
+```bash
+terraform plan
+```
+
+### Apply the configuration
+
+```bash
+terraform apply
+# Type 'yes' when prompted
+```
+
+### Load images into Kind cluster
+
+```bash
+kind load docker-image frontend:latest --name kind-cluster-1
+kind load docker-image backend:latest --name kind-cluster-1
+```
+
+---
+
+## Accessing the Application
+
+### Using Kind Node IP
+
+   - Get the IP of the Kind control plane:
+
+```bash
+docker inspect kind-cluster-1-control-plane | grep IPAddress
+```
+
+   - Add the IP to your `/etc/hosts` file:
+
+```
+172.28.0.2 app.devops-test.local
+172.28.0.2 api.devops-test.local
+```
+
+   - Access the applications in your browser using NodePort or mapped ports:
+
+- Frontend: `http://app.devops-test.local:31207`  
+- API: `http://api.devops-test.local:31207`  
+
+## Cleanup
+
+```bash
+terraform destroy
+```
+
+
+## 📸 Screenshots
+
+- **Kind Cluster Overview**  
+  List of all clusters and nodes in the Kind setup.  
+  ![Kind Cluster](screenshots/kind_cluster_get_all.png)
+
+- **Terraform Setup & Application UI**  
+  Terraform applied resources and the deployed application UI.  
+  ![Terraform App UI](screenshots/terraform_setup_app_ui.png)
