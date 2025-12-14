@@ -1,10 +1,10 @@
 resource "kubernetes_deployment" "frontend" {
   depends_on = [kind_cluster.this, kubernetes_namespace.dev]
+
   metadata {
     name      = "frontend"
     namespace = kubernetes_namespace.dev.metadata[0].name
   }
-  
 
   spec {
     replicas = 1
@@ -38,6 +38,8 @@ resource "kubernetes_deployment" "frontend" {
 }
 
 resource "kubernetes_service" "frontend" {
+  depends_on = [kubernetes_deployment.frontend]  # Ensures pods exist before service
+
   metadata {
     name      = "frontend"
     namespace = kubernetes_namespace.dev.metadata[0].name

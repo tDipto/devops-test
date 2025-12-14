@@ -1,5 +1,5 @@
 resource "kubernetes_ingress_v1" "app" {
-  depends_on = [kind_cluster.this, kubernetes_namespace.dev]
+  depends_on = [kind_cluster.this, kubernetes_namespace.dev,helm_release.nginx_ingress]
   metadata {
     name      = "app-ingress"
     namespace = kubernetes_namespace.dev.metadata[0].name
