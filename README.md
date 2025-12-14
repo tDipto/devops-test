@@ -140,6 +140,10 @@ graph TD
   ![RabbitMQ Ping](screenshots/rabbitmq_ping_from_cluster_1.png)
 
 - **Grafana Logs & Metrics**  
+  Monitoring Pods.  
+  ![Monitoring](screenshots/monitoring_pods.png)
+
+- **Grafana Logs & Metrics**  
   Grafana showing logs and metrics dashboards.  
   ![Grafana](screenshots/grafana_log.png)
 
