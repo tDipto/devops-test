@@ -377,7 +377,7 @@ minikube image build -t frontend:latest -f client/Docker/Dockerfile.frontend .
 ```bash
 # DevOps namespace
 kubectl apply -n devops-dev -f k8s/app/
-kubectl apply -n devops-dev-monitoring -f k8s/monitoring/
+kubectl apply -n devops-dev-monitoring -R -f k8s/monitoring/
 
 # Redis cluster
 kubectl apply -n default -f k8s/redis/
@@ -419,9 +419,7 @@ kubectl rollout status deploy/backend -n devops-dev
 
 ```bash
 kubectl get pods -A
-kubectl get svc -A
-kubectl get ingress -A
-kubectl get hpa -n devops-dev
+kubectl get pods -n devops-dev-namespace
 ```
 
 ---
