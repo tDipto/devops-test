@@ -1,8 +1,7 @@
 resource "kind_cluster" "this" {
-  name           = "kind-cluster-1"
+  name           = var.cluster_name
   wait_for_ready = true
-
-  node_image = "kindest/node:v1.29.8"
+  node_image     = "kindest/node:${var.kubernetes_version}"
 
   kind_config {
     kind        = "Cluster"
@@ -11,13 +10,9 @@ resource "kind_cluster" "this" {
     node {
       role = "control-plane"
 
-      # Label for ingress controller to schedule
       kubeadm_config_patches = [
         "kind: InitConfiguration\nnodeRegistration:\n  kubeletExtraArgs:\n    node-labels: \"ingress-ready=true\"\n"
       ]
-
-      
-
     }
   }
 }

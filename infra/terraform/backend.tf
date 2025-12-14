@@ -4,7 +4,6 @@ resource "kubernetes_deployment" "backend" {
   metadata {
     name      = "backend"
     namespace = kubernetes_namespace.dev.metadata[0].name
-
     annotations = {
       "prometheus.io/scrape" = "true"
       "prometheus.io/port"   = "5000"
@@ -13,7 +12,7 @@ resource "kubernetes_deployment" "backend" {
   }
 
   spec {
-    replicas = 1
+    replicas = var.backend_replicas
 
     selector {
       match_labels = {
@@ -31,11 +30,11 @@ resource "kubernetes_deployment" "backend" {
       spec {
         container {
           name              = "backend"
-          image             = "backend:latest"
+          image             = var.backend_image
           image_pull_policy = "Never"
 
           port {
-            container_port = 5000
+            container_port = var.backend_port
           }
         }
       }
@@ -44,7 +43,7 @@ resource "kubernetes_deployment" "backend" {
 }
 
 resource "kubernetes_service" "backend" {
-  depends_on = [kubernetes_deployment.backend]  # Ensures pods exist before service
+  depends_on = [kubernetes_deployment.backend]
 
   metadata {
     name      = "backend"
@@ -57,8 +56,8 @@ resource "kubernetes_service" "backend" {
     }
 
     port {
-      port        = 5000
-      target_port = 5000
+      port        = var.backend_port
+      target_port = var.backend_port
     }
 
     type = "ClusterIP"

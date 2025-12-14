@@ -1,6 +1,6 @@
 resource "kubernetes_namespace" "dev" {
   metadata {
-    name = "devops-dev"
+    name = var.namespace
   }
 
   depends_on = [kind_cluster.this]

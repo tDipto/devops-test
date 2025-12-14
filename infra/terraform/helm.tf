@@ -1,8 +1,8 @@
 resource "helm_release" "nginx_ingress" {
-  name       = "ingress-nginx"
-  repository = "https://kubernetes.github.io/ingress-nginx"
-  chart      = "ingress-nginx"
-  namespace  = "ingress-nginx"
+  name             = "ingress-nginx"
+  repository       = "https://kubernetes.github.io/ingress-nginx"
+  chart            = "ingress-nginx"
+  namespace        = "ingress-nginx"
   create_namespace = true
 
   set {
@@ -13,16 +13,15 @@ resource "helm_release" "nginx_ingress" {
   set {
     name  = "controller.watchIngressWithoutClass"
     value = "true"
-    type  = "string"  # Important for booleans
+    type  = "string"
   }
 
   set {
     name  = "controller.nodeSelector.ingress-ready"
     value = "true"
-    type  = "string"  # This fixes the unmarshal error!
+    type  = "string"
   }
 
-  # Tolerations (array of maps) - these need dotted notation for each field
   set {
     name  = "controller.tolerations[0].key"
     value = "node-role.kubernetes.io/control-plane"

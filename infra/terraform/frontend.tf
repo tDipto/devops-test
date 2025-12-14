@@ -7,7 +7,7 @@ resource "kubernetes_deployment" "frontend" {
   }
 
   spec {
-    replicas = 1
+    replicas = var.frontend_replicas
 
     selector {
       match_labels = {
@@ -25,11 +25,11 @@ resource "kubernetes_deployment" "frontend" {
       spec {
         container {
           name              = "frontend"
-          image             = "frontend:latest"
+          image             = var.frontend_image
           image_pull_policy = "Never"
 
           port {
-            container_port = 80
+            container_port = var.frontend_port
           }
         }
       }
@@ -38,7 +38,7 @@ resource "kubernetes_deployment" "frontend" {
 }
 
 resource "kubernetes_service" "frontend" {
-  depends_on = [kubernetes_deployment.frontend]  # Ensures pods exist before service
+  depends_on = [kubernetes_deployment.frontend]
 
   metadata {
     name      = "frontend"
@@ -51,8 +51,8 @@ resource "kubernetes_service" "frontend" {
     }
 
     port {
-      port        = 80
-      target_port = 80
+      port        = var.frontend_port
+      target_port = var.frontend_port
     }
 
     type = "ClusterIP"
