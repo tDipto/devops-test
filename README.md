@@ -102,3 +102,43 @@ graph TD
 | Frontend | http://app.devops-test.local     |
 | Backend  | http://api.devops-test.local     |
 | Grafana  | http://grafana.devops-test.local |
+
+
+
+
+
+
+
+## 📸 Screenshots Overview
+
+- **DevOps Cluster Overview**  
+  All Minikube clusters running together.  
+  ![DevOps Cluster](screenshots/all_cluster.png)
+
+- **DevOps Pods**  
+  Backend and Frontend pods in `devops-dev` namespace.  
+  ![DevOps Pods](screenshots/get_devops_pods.png)
+
+- **Seed Data in Backend Pod**  
+  Seed data applied inside backend pod.  
+  ![Seed Data](screenshots/seed_data_backend_pod.png)
+
+- **Redis Cluster Overview**  
+  Redis running with NodePort.  
+  ![Redis Cluster](screenshots/redis_cluster.png)
+
+- **Ping Redis from DevOps Cluster**  
+  Connectivity test from backend pod to Redis.  
+  ![Redis Ping](screenshots/redis_ping_from_cluster_1.png)
+
+- **RabbitMQ Cluster Overview**  
+  RabbitMQ service running with NodePort.  
+  ![RabbitMQ Cluster](screenshots/rabbimq_cluster.png)
+
+- **Ping RabbitMQ from DevOps Cluster**  
+  Connectivity test from backend pod to RabbitMQ.  
+  ![RabbitMQ Ping](screenshots/rabbitmq_ping_from_cluster_1.png)
+
+- **Grafana Logs & Metrics**  
+  Grafana showing logs and metrics dashboards.  
+  ![Grafana](screenshots/grafana_log.png)
