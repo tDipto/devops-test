@@ -34,9 +34,6 @@ graph TD
             Loki["Loki (3100, ClusterIP only)"]
             FluentBit["Fluent Bit DaemonSet → Loki"]
         end
-
-        HPA["HPA → Backend"]
-        RateLimit["Ingress Rate Limiting (429)"]
     end
 
     subgraph "minikube-cluster-redis (IP: 192.168.50.2)"
@@ -67,7 +64,7 @@ graph TD
     FluentBit --> Loki
     Grafana --> Prometheus
     Grafana --> Loki
-    HPA --> Backend
+
 ```
 
 ## Namespaces
@@ -78,8 +75,6 @@ graph TD
 - Backend API with metrics
 - PostgreSQL with pgvector
 - Ingress NGINX
-- HPA enabled
-- Rate limiting
 
 ### devops-dev-monitoring
 
