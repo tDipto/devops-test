@@ -432,11 +432,10 @@ kubectl logs -n devops-dev deploy/frontend
 
 ---
 
-### Port Forward (Optional)
+### Port Forward
 
 ```bash
 kubectl port-forward -n devops-dev-monitoring svc/grafana 3000:3000
-kubectl port-forward -n devops-dev-monitoring svc/prometheus 9090:9090
 ```
 
 ---
@@ -450,13 +449,15 @@ minikube stop -p devops-cluster
 # Delete cluster with Minikube
 minikube delete -p devops-cluster
 
-# Delete cluster using kubectl (namespaces)
+
+# Delete kubectl context
+kubectl config delete-context devops-cluster
+
+# Delete namespaces using kubectl 
 kubectl delete ns devops-dev
 kubectl delete ns devops-dev-monitoring
 kubectl delete ns default   # for Redis / RabbitMQ if desired
 
-# Delete kubectl context
-kubectl config delete-context devops-cluster
 ```
 
 
